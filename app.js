@@ -19,6 +19,8 @@ const port = process.env.PORT;
 const postsRoutes = require("./routes/posts_routes");
 app.use("/posts", postsRoutes);
 
+app.post();
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
