@@ -22,6 +22,7 @@ app.use("/posts", postsRoutes);
 app.get("/about", (req, res) => {
   res.send("About page");
 });
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
