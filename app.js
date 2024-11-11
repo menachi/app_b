@@ -19,7 +19,9 @@ const port = process.env.PORT;
 const postsRoutes = require("./routes/posts_routes");
 app.use("/posts", postsRoutes);
 
-app.post();
+app.get("/about", (req, res) => {
+  res.send("About page");
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
