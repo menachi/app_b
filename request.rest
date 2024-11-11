@@ -1,0 +1,24 @@
+
+###
+
+GET http://localhost:3000/posts
+
+###
+
+GET http://localhost:3000/posts?owner=Eliav
+
+###
+
+GET http://localhost:3000/posts/673202c9bff4fdc013559749
+
+
+###
+
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "owner": "Eliav",
+  "title": "Post title",
+  "content": "Post content...."
+}
