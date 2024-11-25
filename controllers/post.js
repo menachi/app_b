@@ -18,10 +18,13 @@ const getAllPosts = async (req, res) => {
 
 getPostById = async (req, res) => {
   const id = req.params.id;
-
   try {
     const post = await Post.findById(id);
-    res.status(200).send(post);
+    if (post === null) {
+      return res.status(404).send("Post not found");
+    } else {
+      return res.status(200).send(post);
+    }
   } catch (err) {
     console.log(err);
     res.status(400).send(err);
