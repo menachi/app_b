@@ -1,14 +1,14 @@
 import express from "express";
 const router = express.Router();
-import Post from "../controllers/post_controller";
+import postController from "../controllers/post_controller";
 
-router.get("/", Post.getAllPosts);
+router.get("/", postController.getAll.bind(postController));
 
 router.get("/:id", (req, res) => {
-    Post.getPostById(req, res);
+    postController.getById(req, res);
 });
 
-router.post("/", Post.createPost);
+router.post("/", postController.create.bind(postController));
 
 
 export default router;
