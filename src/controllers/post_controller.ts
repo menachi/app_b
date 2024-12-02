@@ -1,13 +1,14 @@
-const Post = require("../models/posts_model");
+import postModel from "../models/posts_model";
+import { Request, Response } from "express";
 
-const getAllPosts = async (req, res) => {
+const getAllPosts = async (req: Request, res: Response) => {
   const ownerFilter = req.query.owner;
   try {
     if (ownerFilter) {
-      const posts = await Post.find({ owner: ownerFilter });
+      const posts = await postModel.find({ owner: ownerFilter });
       res.status(200).send(posts);
     } else {
-      const posts = await Post.find();
+      const posts = await postModel.find();
       res.status(200).send(posts);
     }
   } catch (err) {
@@ -16,10 +17,10 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-getPostById = async (req, res) => {
+const getPostById = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const post = await Post.findById(id);
+    const post = await postModel.findById(id);
     if (post === null) {
       return res.status(404).send("Post not found");
     } else {
@@ -31,10 +32,10 @@ getPostById = async (req, res) => {
   }
 };
 
-const createPost = async (req, res) => {
+const createPost = async (req: Request, res: Response) => {
   console.log(req.body);
   try {
-    const post = await Post.create(req.body);
+    const post = await postModel.create(req.body);
     res.status(201).send(post);
   } catch (err) {
     res.status(400);
@@ -42,4 +43,4 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { getAllPosts, createPost, getPostById };
+export default { getAllPosts, createPost, getPostById };
