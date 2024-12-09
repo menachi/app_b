@@ -5,6 +5,12 @@ import commentsModel from "../models/comments_model";
 import { Express } from "express";
 
 let app: Express;
+const testUser = {
+  email: "test@user.com",
+  password: "123456",
+}
+let accessToken: string;
+
 
 beforeAll(async () => {
   app = await initApp();
