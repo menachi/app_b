@@ -4,6 +4,7 @@ export interface iUser {
   email: string,
   password: string,
   _id?: string,
+  refreshTokens?: string[],
 }
 
 const userSchema = new mongoose.Schema<iUser>({
@@ -16,6 +17,10 @@ const userSchema = new mongoose.Schema<iUser>({
     type: String,
     required: true,
   },
+  refreshTokens: {
+    type: [String],
+    default: [],
+  }
 });
 
 const userModel = mongoose.model<iUser>("users", userSchema);
