@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 const app = express();
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,6 +9,7 @@ import bodyParser from "body-parser";
 import authRoutes from "./routes/auth_routes";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
+import fileRouter from "./routes/file_routes";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,9 +19,19 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "*");
   next();
 });
-app.use("/posts", postsRoutes);
-app.use("/comments", commentsRoutes);
-app.use("/auth", authRoutes);
+
+const delay = (req: Request, res: Response, next: NextFunction) => {
+  const d = new Promise<void>((r) => setTimeout(() => r(), 2000));
+  d.then(() => next());
+};
+
+app.use("/posts", delay, postsRoutes);
+app.use("/comments", delay, commentsRoutes);
+app.use("/auth", delay, authRoutes);
+app.use("/file", fileRouter);
+app.use("/public", express.static("public"));
+app.use("/storage", express.static("storage"));
+app.use(express.static("front"));
 
 const options = {
   definition: {
