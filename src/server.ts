@@ -21,8 +21,9 @@ app.use((req, res, next) => {
 });
 
 const delay = (req: Request, res: Response, next: NextFunction) => {
-  const d = new Promise<void>((r) => setTimeout(() => r(), 2000));
-  d.then(() => next());
+  // const d = new Promise<void>((r) => setTimeout(() => r(), 2000));
+  // d.then(() => next());
+  next();
 };
 
 app.use("/posts", delay, postsRoutes);

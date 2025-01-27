@@ -9,10 +9,12 @@ const register = async (req: Request, res: Response) => {
     const password = req.body.password;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
+    let imgUrl = req.body.imgUrl;
+    if (!imgUrl) imgUrl = null;
     const user = await userModel.create({
       email: req.body.email,
       password: hashedPassword,
+      imgUrl: imgUrl,
     });
     res.status(200).send(user);
   } catch (err) {
